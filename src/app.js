@@ -24,6 +24,10 @@ app.use(`/api/v1/`, usersRouter);
 app.use(`/api/v1/`, categoryRouter);
 app.use(`/api/v1/`, cartRouter);
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
