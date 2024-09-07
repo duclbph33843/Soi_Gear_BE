@@ -16,8 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("tiny"));
 
-connectDB("mongodb://127.0.0.1:27017/NHShop-Project");
-
+connectDB(process.env.DB_URI);
 
 app.use(`/api/v1/`, authRouter);
 app.use(`/api/v1/`, productRouter);
