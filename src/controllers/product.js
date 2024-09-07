@@ -25,6 +25,7 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
+    console.log("Đang tìm sản phẩm")
     //Lấy thông tin product cùng với thông tin category
     const products = await Product.find({}).populate("category");
     if (products.length === 0) {
@@ -80,7 +81,7 @@ export const related = async (req, res) => {
 
 export const searchProducts = async (req, res) => {
   try {
-    const searchTerm = req.query.searchTerm;//Thông tin tìm kiếm được gửi lên
+    const searchTerm = req.query.searchTerm; //Thông tin tìm kiếm được gửi lên
     const sort = req.query.sort; // Thêm tham số sort
 
     if (!searchTerm) {
