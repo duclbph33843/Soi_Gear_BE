@@ -1,11 +1,11 @@
 import express from "express";
-import authRouter from "./routers/auth";
-import productRouter from "./routers/product";
-import usersRouter from "./routers/users";
-import categoryRouter from "./routers/category";
-import cartRouter from "./routers/cart";
+import authRouter from "./routers/auth.js";
+import productRouter from "./routers/product.js";
+import usersRouter from "./routers/users.js";
+import categoryRouter from "./routers/category.js";
+import cartRouter from "./routers/cart.js";
 import cors from "cors";
-import { connectDB } from "./config/db";
+import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
 

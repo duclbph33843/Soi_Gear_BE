@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import Category from "../models/category";
-import Product from "../models/product";
+import Category from "../models/category.js";
+import Product from "../models/product.js";
 import slugify from "slugify";
 
 export const create = async (req, res) => {

@@ -1,6 +1,6 @@
-import Cart from "../models/cart";
-import Product from "../models/product";
-import User from "../models/user";
+import Cart from "../models/cart.js";
+import Product from "../models/product.js";
+import User from "../models/user.js";
 import { StatusCodes } from "http-status-codes";
 
 export const addItemToCart = async (req, res) => {

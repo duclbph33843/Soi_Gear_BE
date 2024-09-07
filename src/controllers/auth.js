@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { StatusCodes } from "http-status-codes";
-import User from "../models/user";
+import User from "../models/user.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "./../utils/email.js";
