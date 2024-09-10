@@ -28,6 +28,7 @@ export const getAll = async (req, res) => {
     console.log("Đang tìm sản phẩm")
     //Lấy thông tin product cùng với thông tin category
     const products = await Product.find({}).populate("category");
+    console.log(products);
     if (products.length === 0) {
       return res
         .status(StatusCodes.NOT_FOUND)

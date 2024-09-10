@@ -17,6 +17,8 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 connectDB(process.env.DB_URI);
+console.log(process.env.DB_URI);
+
 
 app.use(`/api/v1/`, authRouter);
 app.use(`/api/v1/`, productRouter);

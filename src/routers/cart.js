@@ -1,11 +1,12 @@
 import { Router } from "express";
 import {
-    addItemToCart,
-    decreaseProductQuantity,
-    getCart,
-    increaseProductQuantity,
-    removeItemFromCart,
-    updateProductQuantity,
+  addItemToCart,
+  clearCart,
+  decreaseProductQuantity,
+  getCart,
+  increaseProductQuantity,
+  removeItemFromCart,
+  updateProductQuantity,
 } from "../controllers/cart.js";
 
 const router = Router();
@@ -16,5 +17,6 @@ router.post("/carts/remove-cart", removeItemFromCart);
 router.put("/carts/update-product-quantity", updateProductQuantity);
 router.put("/carts/increase", increaseProductQuantity);
 router.put("/carts/decrease", decreaseProductQuantity);
+router.post("/carts/clearcart", clearCart);
 
 export default router;
