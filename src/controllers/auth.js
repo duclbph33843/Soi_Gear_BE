@@ -34,33 +34,62 @@ const signupSchema = Joi.object({
   }),
 });
 
+const UserSchema = new mongoose.Schema({
+  clerkId: String, // Clerk ID to link with Clerk user
+  email: String,
+  password: String,
+  avatar: String,
+});
+
 export const signup = async (req, res) => {
-  // lấy dữ liệu được nhập lên từ người dùng
   const { email, password, name, avatar } = req.body;
-  //Kiểm tra validate
+
+  // Kiểm tra validate
   const { error } = signupSchema.validate(req.body, { abortEarly: false });
   if (error) {
     const messages = error.details.map((item) => item.message);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ messages });
+    return res.status(StatusCodes.BAD_REQUEST).json({ messages });
   }
-  //Lấy ra từng emai trong user để so sánh
-  const exitsUser = await User.findOne({ email });
-  if (exitsUser) {
+
+  // Kiểm tra email có tồn tại không
+  const existsUser = await User.findOne({ email });
+  if (existsUser) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ message: ["Email đã tồn tại !"] });
   }
 
-  //Mã hóa mật khẩu 10 lần
+  // Mã hóa mật khẩu
   const hashPass = await bcryptjs.hash(password, 10);
-  //Nếu role bằng 0 thì là admin còn khác 0 thì là user
+
+  // Xác định vai trò của người dùng
   const role = (await User.countDocuments({})) === 0 ? "admin" : "user";
-  const user = await User.create({
-    ...req.body,
-    password: hashPass,
-    role,
-  });
-  return res.status(StatusCodes.CREATED).json({ user });
+
+  try {
+    // Tạo người dùng trong Clerk
+    const clerkUser = await clerk.users.create({
+      emailAddress: email,
+      password: password,
+      firstName: name,
+      // Các trường khác nếu cần thiết
+    });
+
+    // Tạo người dùng trong MongoDB và lưu clerkId
+    const user = await User.create({
+      name,
+      email,
+      password: hashPass,
+      avatar,
+      role,
+      clerkId: clerkUser.id, // Lưu clerkId nhận được từ Clerk
+    });
+
+    return res.status(StatusCodes.CREATED).json({ user });
+  } catch (error) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Có lỗi xảy ra với Clerk" });
+  }
 };
 
 export const signin = async (req, res) => {

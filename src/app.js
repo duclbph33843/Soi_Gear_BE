@@ -8,6 +8,7 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import { Clerk } from "@clerk/clerk-sdk-node";
 
 const app = express();
 dotenv.config();
@@ -16,8 +17,12 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("tiny"));
 
+const clerk = new Clerk({
+  apiKey: process.env.CLERK_SECRET_KEY, // Thay thế bằng API key của bạn
+});
+
 connectDB(process.env.DB_URI);
-console.log(process.env.DB_URI);
+// console.log(process.env.DB_URI);
 
 
 app.use(`/api/v1/`, authRouter);
