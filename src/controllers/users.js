@@ -18,7 +18,19 @@ export const getUsers = async (req, res) => {
   }
 };
 
-
+export const getUsersByID = async (req, res) => {
+  try {
+    const users = await User.findById(req.params.id);
+    if (users.length === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Không có tài khoản nào" });
+    }
+    return res.status(StatusCodes.OK).json(users);
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+  }
+};
 
 export const deleteUsers = async (req, res) => {
   try {
