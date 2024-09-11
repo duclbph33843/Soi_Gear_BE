@@ -18,6 +18,8 @@ export const getUsers = async (req, res) => {
   }
 };
 
+
+
 export const deleteUsers = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
