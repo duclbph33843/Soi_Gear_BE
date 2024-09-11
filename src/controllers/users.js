@@ -4,7 +4,7 @@ import User from "../models/user.js";
 export const getUsers = async (req, res) => {
   try {
     //Lấy ra tất cả users với thông tin cụ thể
-    const users = await User.find({}, "name email password createdAt");
+    const users = await User.find({}, "name email password createdAt avatar");
     console.log("Fetched users:", users);
     if (users.length === 0) {
       return res
