@@ -34,12 +34,12 @@ const signupSchema = Joi.object({
   }),
 });
 
-const UserSchema = new mongoose.Schema({
-  clerkId: String, // Clerk ID to link with Clerk user
-  email: String,
-  password: String,
-  avatar: String,
-});
+// const UserSchema = new mongoose.Schema({
+//   clerkId: String, // Clerk ID to link with Clerk user
+//   email: String,
+//   password: String,
+//   avatar: String,
+// });
 
 export const signup = async (req, res) => {
   const { email, password, name, avatar } = req.body;
