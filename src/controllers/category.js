@@ -8,6 +8,7 @@ export const create = async (req, res) => {
         //Tạo Category và kiểm tra có trùng với cấu trúng dữ liệu hay không
         const category = await Category.create({
             name: req.body.name,
+            avatar: req.body.avatar,
             //slug được tạo trùng với tên và đổi khoảng trống thành -
             slug: slugify(req.body.name, "-"),
         });
